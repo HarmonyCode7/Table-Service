@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Table Service</string>
+    <string name="not_a_member">Not a member?</string>
+    <string name="sign_up">sign up</string>
+    <string name="log_in">Log in</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="password">Password</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCl9E8H0CLjwAaw00iqxgSESFbwX--cwhA</string>
+</resources>
