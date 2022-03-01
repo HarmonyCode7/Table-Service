@@ -12,9 +12,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import android.Manifest
 import android.content.Intent
+import android.content.res.Resources
+import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 
 
 const val LOGIN_MESSAGE = "com.harmony.tableservice.MESSAGE"
@@ -22,6 +26,7 @@ const val LOGIN_MESSAGE = "com.harmony.tableservice.MESSAGE"
 class MainActivity : AppCompatActivity(), OnMapReadyCallback{
 
     private lateinit var map: GoogleMap
+    private val TAG = MainActivity::class.java.simpleName
 
     companion object {
         private val MY_PERMISSION_FINE_LOCATION = 101
@@ -32,7 +37,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback{
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
     }
 
     fun sendMessage(view: View) {
@@ -45,8 +49,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback{
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        val mylocation = LatLng(51.5028203,-0.0206098)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 16.21F))
+        map = googleMap
+        try {
+            val success: Boolean = googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json)
+            );
+            if(!success) {
+                Log.e(TAG, "")
+            }
+        }catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", e)
+        }
+        val trentBridge = LatLng(52.9387031,-1.1357277)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(trentBridge, 16.94F))
         map.uiSettings.isZoomControlsEnabled = true
 
         if(ActivityCompat.checkSelfPermission(this,
